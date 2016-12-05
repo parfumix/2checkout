@@ -1,0 +1,34 @@
+{
+    "name": "parfumix/2checkout",
+    "type": "library",
+    "description": "2Checkout Gateway OmiPay implementation",
+    "keywords": [
+        "2Checkout",
+        "2co",
+        "payment",
+        "gateway"
+    ],
+    "homepage": "https://github.com/parfumix/2checkout",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Radu Bordei",
+            "email": "radu.bordei89@gmail.com",
+            "homepage": "https://github.com/parfumix"
+        }
+    ],
+    "require": {
+        "omnipay/common": "~2.0",
+        "php": ">=5.2.0",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Parfumix\\TwoCheckout\\": "src/"
+        }
+    }
+}
