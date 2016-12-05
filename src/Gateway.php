@@ -14,7 +14,7 @@ class Gateway extends AbstractGateway {
 	 * This can be used by carts to get the display name for each gateway.
 	 */
 	public function getName() {
-		// TODO: Implement getName() method.
+		return '2Checkout';
 	}
 
 	/**
