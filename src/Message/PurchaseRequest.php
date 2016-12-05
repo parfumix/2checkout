@@ -14,18 +14,24 @@ class PurchaseRequest extends AbstractRequest {
 	 * @return mixed
 	 */
 	public function getData() {
-		$this->validate('accountNumber', 'returnUrl');
+		$this->validate('sid');
 
 		$data = array();
 		$data['sid'] = $this->getParameter('sid');
 		$data['mode'] = '2CO';
-		$data['merchant_order_id'] = $this->getTransactionId();
-		$data['currency_code'] = $this->getCurrency();
-		$data['x_receipt_link_url'] = $this->getReturnUrl();
 
 		// Do not pass for live sales i.e if its false.
 		if ( $this->getTestMode() )
 			$data['demo'] = 'Y';
+
+		if( $transaction_id = $this->getTransactionId() )
+			$data['merchant_order_id'] = $transaction_id;
+		
+		if( $currency = $this->getCurrency() )
+			$data['currency_code'] = $currency;
+		
+		if( $returnUrl = $this->getReturnUrl() )
+			$data['x_receipt_link_url'] = $returnUrl;
 
 		if ( $language = $this->getParameter('language') )
 			$data['lang'] = $language;
@@ -41,44 +47,53 @@ class PurchaseRequest extends AbstractRequest {
 
 		// Setup Products information
 		foreach ($this->getItems() as $item) {
-			$data['li_'.$i.'_type'] = $item['type'];
-			$data['li_'.$i.'_name'] = $item['name'];
-			$data['li_'.$i.'_price'] = $item['price'];
-			$data['li_'.$i.'_quantity'] = $item['quantity'];
+			if(! isset($item->getParameters()['name']) )
+				continue;
 
-			// optional item/product parameters
-			if (isset($item['tangible'])) {
-				$data['li_'.$i.'_tangible'] = $item['tangible'];
-			}
-			if (isset($item['product_id'])) {
-				$data['li_'.$i.'_product_id'] = $item['product_id'];
-			}
-			if (isset($item['description'])) {
-				$data['li_'.$i.'_description'] = $item['description'];
-			}
-			if (isset($item['recurrence'])) {
-				$data['li_'.$i.'_recurrence'] = $item['recurrence'];
-			}
-			if (isset($item['duration'])) {
-				$data['li_'.$i.'_duration'] = $item['duration'];
-			}
-			if (isset($item['startup_fee'])) {
-				$data['li_'.$i.'_startup_fee'] = $item['startup_fee'];
-			}
+			if(! isset($item->getParameters()['price']) )
+				continue;
+
+			if(! isset($item->getParameters()['quantity']) )
+				continue;
+
+			$data['li_'.$i.'_name'] = $item->getParameters()['name'];
+			$data['li_'.$i.'_price'] = $item->getParameters()['price'];
+			$data['li_'.$i.'_quantity'] = $item->getParameters()['quantity'];
+
+			if( isset( $item->getParameters()['type'] ) )
+				$data['li_'.$i.'_type'] = $item->getParameters()['type'];
+
+			if ( isset( $item->getParameters()['tangible'] ) )
+				$data['li_'.$i.'_tangible'] = $item->getParameters()['tangible'];
+
+			if ( isset( $item->getParameters()['product_id'] ) )
+				$data['li_'.$i.'_product_id'] = $item->getParameters()['product_id'];
+
+			if ( isset( $item->getParameters()['description'] ) )
+				$data['li_'.$i.'_description'] = $item->getParameters()['description'];
+
+			if ( isset( $item->getParameters()['recurrence'] ) )
+				$data['li_'.$i.'_recurrence'] = $item->getParameters()['recurrence'];
+
+			if ( isset( $item->getParameters()['duration'] ) )
+				$data['li_'.$i.'_duration'] = $item->getParameters()['duration'];
+
+			if ( isset( $item->getParameters()['startup_fee'] ) )
+				$data['li_'.$i.'_startup_fee'] = $item->getParameters()['startup_fee'];
 
 			++$i;
 		}
 
-		if ($this->getCard()) {
-			$data['card_holder_name'] = $this->getCard()->getName();
-			$data['street_address'] = $this->getCard()->getAddress1();
-			$data['street_address2'] = $this->getCard()->getAddress2();
-			$data['city'] = $this->getCard()->getCity();
-			$data['state'] = $this->getCard()->getState();
-			$data['zip'] = $this->getCard()->getPostcode();
-			$data['country'] = $this->getCard()->getCountry();
-			$data['phone'] = $this->getCard()->getPhone();
-			$data['email'] = $this->getCard()->getEmail();
+		if ( $card = $this->getCard() ) {
+			$data['card_holder_name'] = $card->getName();
+			$data['street_address'] = $card->getAddress1();
+			$data['street_address2'] = $card->getAddress2();
+			$data['city'] = $card->getCity();
+			$data['state'] = $card->getState();
+			$data['zip'] = $card->getPostcode();
+			$data['country'] = $card->getCountry();
+			$data['phone'] = $card->getPhone();
+			$data['email'] = $card->getEmail();
 		}
 
 		return $data;
@@ -92,5 +107,26 @@ class PurchaseRequest extends AbstractRequest {
 	 */
 	public function sendData($data) {
 		return new PurchaseResponse($this, $data);
+	}
+
+	/**
+	 * Set sid .
+	 *
+	 * @param $sid
+	 * @return $this
+	 */
+	public function setSid($sid) {
+		$this->setParameter('sid', $sid);
+
+		return $this;
+	}
+
+	/**
+	 * Get sid .
+	 *
+	 * @return mixed
+	 */
+	public function getSid() {
+		return $this->getParameter('sid');
 	}
 }

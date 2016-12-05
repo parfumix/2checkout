@@ -24,8 +24,7 @@ class Gateway extends AbstractGateway {
 	 */
 	public function getDefaultParameters() {
 		return array(
-			'accountNumber' => null,
-			'secretWord' => null,
+			'sid' => null,
 			// if true, transaction with the live checkout URL will be a demo sale and card won't be charged.
 			'testMode' => false,
 		);
