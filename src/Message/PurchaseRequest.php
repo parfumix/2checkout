@@ -4,8 +4,11 @@ namespace Omnipay\Two2Checkout\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\ResponseInterface;
+use Omnipay\Two2Checkout\GatewayExtend;
 
 class PurchaseRequest extends AbstractRequest {
+
+	use GatewayExtend;
 
 	/**
 	 * Get the raw data array for this message. The format of this varies from gateway to
@@ -109,24 +112,4 @@ class PurchaseRequest extends AbstractRequest {
 		return new PurchaseResponse($this, $data);
 	}
 
-	/**
-	 * Set sid .
-	 *
-	 * @param $sid
-	 * @return $this
-	 */
-	public function setSid($sid) {
-		$this->setParameter('sid', $sid);
-
-		return $this;
-	}
-
-	/**
-	 * Get sid .
-	 *
-	 * @return mixed
-	 */
-	public function getSid() {
-		return $this->getParameter('sid');
-	}
 }

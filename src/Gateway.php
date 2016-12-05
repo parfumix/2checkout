@@ -8,6 +8,8 @@ use Omnipay\Two2Checkout\Message\PurchaseRequest;
 
 class Gateway extends AbstractGateway {
 
+	use GatewayExtend;
+
 	/**
 	 * Get gateway display name
 	 *
