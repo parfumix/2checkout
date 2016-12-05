@@ -1,10 +1,10 @@
 <?php
 
-namespace Parfumix\TwoCheckout;
+namespace Omnipay\Two2Checkout;
 
 use Omnipay\Common\AbstractGateway;
-use Parfumix\TwoCheckout\Message\CompletePurchaseRequest;
-use Parfumix\TwoCheckout\Message\PurchaseRequest;
+use Omnipay\Two2Checkout\Message\CompletePurchaseRequest;
+use Omnipay\Two2Checkout\Message\PurchaseRequest;
 
 class Gateway extends AbstractGateway {
 
@@ -14,7 +14,7 @@ class Gateway extends AbstractGateway {
 	 * This can be used by carts to get the display name for each gateway.
 	 */
 	public function getName() {
-		return '2Checkout';
+		return 'Two2Checkout';
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Parfumix\TwoCheckout\Message;
+namespace Omnipay\Two2Checkout\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;

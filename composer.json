@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Parfumix\\TwoCheckout\\": "src/"
+            "Omnipay\\Two2Checkout\\": "src/"
         }
     }
 }
