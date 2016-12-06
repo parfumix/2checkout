@@ -9,8 +9,33 @@ use Omnipay\Common\Message\AbstractResponse;
  */
 class CompletePurchaseResponse extends AbstractResponse {
 
+	/**
+	 * Check if successfully request .
+	 *
+	 * @return bool
+	 */
 	public function isSuccessful() {
-		return true;
+		return $this->isCardProcessed();
+	}
+
+	/**
+	 * Check if card is processed
+	 *
+	 * @return bool
+	 */
+	public function isCardProcessed() {
+		return $this->data['credit_card_processed'] == 'Y';
+	}
+
+	/**
+	 * Get total amount
+	 *
+	 * @return null
+	 */
+	public function getTotal() {
+		return isset($this->data['total'])
+			? $this->data['total']
+			: null;
 	}
 
 	/**
