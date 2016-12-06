@@ -33,7 +33,7 @@ class Factory {
 	 * @param string $class
 	 * @param array $parameters
 	 * @param array $aliases
-	 * @return bool|void
+	 * @return $this
 	 */
 	public function register($class, array $parameters = array(), array $aliases = array()) {
 		if (! class_exists($class))
@@ -44,6 +44,7 @@ class Factory {
 
 		self::$gateways[$class] = $parameters;
 
+		$aliases = (array)$aliases;
 		foreach ($aliases as $alias)
 			$this->alias($alias, $class);
 
