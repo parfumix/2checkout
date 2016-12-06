@@ -14,7 +14,11 @@ class NotificationRequest extends AbstractRequest {
 	 * @return mixed
 	 */
 	public function getData() {
-		// TODO: Implement getData() method.
+		$data = $this->httpRequest->request->all();
+		$data['secretWord']    = $this->getSecretWord();
+		$data['accountNumber'] = $this->getAccountNumber();
+
+		return $data;
 	}
 
 	/**

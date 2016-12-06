@@ -14,7 +14,13 @@ class NotificationResponse extends AbstractResponse
 	 * @return boolean
 	 */
 	public function isSuccessful() {
-		// TODO: Implement isSuccessful() method.
+		$hashSecretWord = $this->data['secretWord'];
+		$hashSid = $this->data['accountNumber'];
+		$hashOrder = $this->data['sale_id'];
+		$hashInvoice = $this->data['invoice_id'];
+		$StringToHash = strtoupper(md5($hashOrder.$hashSid.$hashInvoice.$hashSecretWord));
+
+		return $StringToHash == $this->data['md5_hash'];
 	}
 
 	/**
