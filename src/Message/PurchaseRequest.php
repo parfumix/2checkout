@@ -32,10 +32,10 @@ class PurchaseRequest extends AbstractRequest {
 		if( $returnUrl = $this->getReturnUrl() )
 			$data['x_receipt_link_url'] = $returnUrl;
 
-		if ( $language = $this->getParameter('language') )
+		if ( $language = $this->getLanguage() )
 			$data['lang'] = $language;
 
-		if ( $coupon = $this->getParameter('coupon') )
+		if ( $coupon = $this->getCoupon() )
 			$data['coupon'] = $coupon;
 
 		$i = 0;
