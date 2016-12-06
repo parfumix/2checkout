@@ -4,6 +4,7 @@ namespace Omnipay\Two2Checkout;
 
 use Omnipay\Extend\Common\AbstractGateway;
 use Omnipay\Two2Checkout\Message\CompletePurchaseRequest;
+use Omnipay\Two2Checkout\Message\NotificationRequest;
 use Omnipay\Two2Checkout\Message\PurchaseRequest;
 
 class Gateway extends AbstractGateway {
@@ -52,4 +53,13 @@ class Gateway extends AbstractGateway {
 		return $this->createRequest(CompletePurchaseRequest::class, $options);
 	}
 
+	/**
+	 * Accept notifications .
+	 *
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest
+	 */
+	public function acceptNotification(array $options = array()) {
+		return $this->createRequest(NotificationRequest::class, $options);
+	}
 }

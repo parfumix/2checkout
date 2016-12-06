@@ -105,24 +105,4 @@ trait GatewayExtend {
 		return $this->setParameter('secretWord', $value);
 	}
 
-	/**
-	 * Set payment method .
-	 *
-	 * @param $value
-	 * @return mixed
-	 */
-	public function setPaymentMethod($value) {
-		return $this->setParameter('paymentMethod', $value);
-
-	}
-
-	/**
-	 * Get payment method .
-	 *
-	 * @return mixed
-	 */
-	public function getPaymentMethod() {
-		return $this->getParameter('paymentMethod');
-	}
-
 }
