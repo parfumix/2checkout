@@ -39,7 +39,7 @@ class Factory {
 		if (! class_exists($class))
 			throw new RuntimeException("Class '$class' not found");
 
-		if ( in_array($class, self::$gateways) )
+		if ( in_array($class, array_keys(self::$gateways)) )
 			return $this;
 
 		self::$gateways[$class] = $parameters;
@@ -62,10 +62,12 @@ class Factory {
 		if (! class_exists($class))
 			throw new RuntimeException("Class '$class' not found");
 
-		if ( ! in_array($class, self::$gateways) )
+		if ( ! in_array($class, array_keys(self::$gateways)) )
 			throw new RuntimeException("Class '$class' not found");
 
-		if ( in_array($alias, self::$aliases) )
+		$alias = $this->normalize($alias);
+
+		if ( in_array($alias, array_keys(self::$aliases)) )
 			return $this;
 
 		self::$aliases[$alias] = $class;
@@ -82,8 +84,8 @@ class Factory {
 	 * @return mixed
 	 */
 	public function create($class, ClientInterface $httpClient = null, HttpRequest $httpRequest = null) {
-		$class = isset(self::$aliases[$class])
-			? self::$aliases[$class]
+		$class = isset(self::$aliases[$this->normalize($class)])
+			? self::$aliases[$this->normalize($class)]
 			: $class;
 
 		if (! class_exists($class))
@@ -95,6 +97,16 @@ class Factory {
 
 		return (new $class($httpClient, $httpRequest))
 			->initialize($params);
+	}
+
+	/**
+	 * Normalize alias .
+	 *
+	 * @param $alias
+	 * @return string
+	 */
+	protected function normalize($alias) {
+		return strtolower($alias);
 	}
 
 }
