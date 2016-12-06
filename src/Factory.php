@@ -32,9 +32,10 @@ class Factory {
 	 *
 	 * @param string $class
 	 * @param array $parameters
+	 * @param array $aliases
 	 * @return bool|void
 	 */
-	public function register($class, array $parameters = array()) {
+	public function register($class, array $parameters = array(), array $aliases = array()) {
 		if (! class_exists($class))
 			throw new RuntimeException("Class '$class' not found");
 
@@ -42,6 +43,9 @@ class Factory {
 			return $this;
 
 		self::$gateways[$class] = $parameters;
+
+		foreach ($aliases as $alias)
+			$this->alias($alias, $class);
 
 		return $this;
 	}
