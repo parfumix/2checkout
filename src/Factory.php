@@ -14,6 +14,11 @@ class Factory {
 	protected static $gateways = array();
 
 	/**
+	 * @var array
+	 */
+	protected static $aliases = array();
+
+	/**
 	 * Get all gateways .
 	 *
 	 * @return array
@@ -30,13 +35,35 @@ class Factory {
 	 * @return bool|void
 	 */
 	public function register($class, array $parameters = array()) {
-		if (!class_exists($class))
+		if (! class_exists($class))
 			throw new RuntimeException("Class '$class' not found");
 
-		if (in_array($class, self::$gateways))
+		if ( in_array($class, self::$gateways) )
 			return $this;
 
 		self::$gateways[$class] = $parameters;
+
+		return $this;
+	}
+
+	/**
+	 * Adding alias to specific class .
+	 *
+	 * @param $alias
+	 * @param $class
+	 * @return $this
+	 */
+	public function alias($alias, $class) {
+		if (! class_exists($class))
+			throw new RuntimeException("Class '$class' not found");
+
+		if ( ! in_array($class, self::$gateways) )
+			throw new RuntimeException("Class '$class' not found");
+
+		if ( in_array($alias, self::$aliases) )
+			return $this;
+
+		self::$aliases[$alias] = $class;
 
 		return $this;
 	}
@@ -50,6 +77,10 @@ class Factory {
 	 * @return mixed
 	 */
 	public function create($class, ClientInterface $httpClient = null, HttpRequest $httpRequest = null) {
+		$class = isset(self::$aliases[$class])
+			? self::$aliases[$class]
+			: $class;
+
 		if (! class_exists($class))
 			throw new RuntimeException("Class '$class' not found");
 
