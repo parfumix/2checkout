@@ -19,7 +19,7 @@ class PurchaseResponse extends AbstractResponse
 	public function getEndPoint() {
 		$endpoint = $this->liveEndpoint;
 
-		if (isset($this->data['sandbox']) && $this->data['sandbox'] === true)
+		if ( $this->getRequest()->getTestMode() )
 			$endpoint = $this->testEndpoint;
 
 		return $endpoint;

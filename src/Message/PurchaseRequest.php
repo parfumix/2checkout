@@ -23,10 +23,6 @@ class PurchaseRequest extends AbstractRequest {
 		$data['sid'] = $this->getParameter('sid');
 		$data['mode'] = '2CO';
 
-		// Do not pass for live sales i.e if its false.
-		if ( $this->getTestMode() )
-			$data['demo'] = 'Y';
-
 		if( $transaction_id = $this->getTransactionId() )
 			$data['merchant_order_id'] = $transaction_id;
 		
@@ -41,10 +37,6 @@ class PurchaseRequest extends AbstractRequest {
 
 		if ( $coupon = $this->getParameter('coupon') )
 			$data['coupon'] = $coupon;
-
-		// needed to determine which API endpoint to use in OffsiteResponse
-		if ( $this->getTestMode() )
-			$data['sandbox'] = true;
 
 		$i = 0;
 
