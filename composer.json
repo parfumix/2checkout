@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "omnipay/common": "~2.0",
+        "parfumix/omnipay-extend": "dev-master",
         "php": ">=5.2.0",
         "ext-curl": "*",
         "ext-json": "*"
