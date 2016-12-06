@@ -17,18 +17,19 @@ class PurchaseRequest extends AbstractRequest {
 	 * @return mixed
 	 */
 	public function getData() {
-		$this->validate('sid');
+		$this->validate('sid', 'items', 'paymentMethod');
 
 		$data = array();
 		$data['sid'] = $this->getParameter('sid');
 		$data['mode'] = '2CO';
+		$data['paymentMethod'] = $this->getPaymentMethod();
 
 		if( $transaction_id = $this->getTransactionId() )
 			$data['merchant_order_id'] = $transaction_id;
 		
 		if( $currency = $this->getCurrency() )
 			$data['currency_code'] = $currency;
-		
+
 		if( $returnUrl = $this->getReturnUrl() )
 			$data['x_receipt_link_url'] = $returnUrl;
 
