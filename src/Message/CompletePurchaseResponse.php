@@ -1,8 +1,8 @@
 <?php
 
 namespace Omnipay\Two2Checkout\Message;
+use Omnipay\Extend\Common\Message\AbstractResponse;
 
-use Omnipay\Common\Message\AbstractResponse;
 
 /**
  * 2Checkout Complete Purchase Response.

@@ -2,7 +2,7 @@
 
 namespace Omnipay\Two2Checkout;
 
-use Omnipay\Common\AbstractGateway;
+use Omnipay\Extend\Common\AbstractGateway;
 use Omnipay\Two2Checkout\Message\CompletePurchaseRequest;
 use Omnipay\Two2Checkout\Message\PurchaseRequest;
 

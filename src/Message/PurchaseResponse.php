@@ -2,8 +2,8 @@
 
 namespace Omnipay\Two2Checkout\Message;
 
-use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
+use Omnipay\Extend\Common\Message\AbstractResponse;
 
 class PurchaseResponse extends AbstractResponse
 	implements RedirectResponseInterface {

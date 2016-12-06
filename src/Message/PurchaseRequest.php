@@ -2,8 +2,8 @@
 
 namespace Omnipay\Two2Checkout\Message;
 
-use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\ResponseInterface;
+use Omnipay\Extend\Common\Message\AbstractRequest;
 use Omnipay\Two2Checkout\GatewayExtend;
 
 class PurchaseRequest extends AbstractRequest {
