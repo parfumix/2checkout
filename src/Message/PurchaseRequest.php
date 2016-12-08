@@ -89,6 +89,7 @@ class PurchaseRequest extends AbstractRequest {
 			$data['zip'] = $card->getPostcode();
 			$data['country'] = $card->getCountry();
 			$data['phone'] = $card->getPhone();
+			$data['phone_extension'] = $card->getPhoneExtension();
 			$data['email'] = $card->getEmail();
 		}
 
